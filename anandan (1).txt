@@ -1,0 +1,108 @@
+#create user
+****************************************************************************************
+create user username identified by password;
+create user anandakrishnan identified by anandan2580;
+User created.
+
+
+#granding permission to a newly created user
+******************************************************************************************
+grant all privileges to username;
+grant all privileges to anandakrishnan;
+Grant succeeded.
+
+
+#creating tables with integrity constraints
+*********************************************************************************************
+create table student(sid integer,sname varchar(20),age integer);
+Table created.
+create table student1(sid integer primary key,sname varchar(20),age integer);
+Table created.
+create table student2(sid integer ,sname varchar(20),age integer,primary key(sid));
+Table created.
+
+#setting foreign key constraints
+****************************************************************************************************
+create table course(sid integer references student1,courseid varchar(6),marks integer);
+Table created.
+create table course1(sid integer,courseid varchar(6),marks integer,foreign key(sid) references student2(sid));
+Table created.
+
+
+#inserting records into a table
+********************************************************************************************************
+insert into  tablename values(value 1,value 21),.....value n);
+insert into student1 values(020,'anandan',23);
+1 row created.
+insert into student1 values(021,'anand',21);
+1 row created.
+insert into course values(021,'20mca102',100);
+1 row created.
+insert into course values(100,'20mca102',100);
+parent key not found.
+insert into student1 values('anjana',5,21);
+invalid number.
+
+
+#alternate method for inserting data
+***********************************************************************************************
+insert into tablename(field1,field2,...fieldn) values(value1,value2,...,valuen); 
+insert into student1(sname,sid,age) values('davis',5,25);
+1 row created.
+insert into student1(sid,sname) values(125,'devika');
+1 row created.
+insert into student1 values(&sid,'&sname',&age);
+
+
+#to view the contents of table
+**********************************************************************************
+select * from student1;
+
+#to alter table
+*********************************************************************************
+alter table course modify courseid varchar(10);
+Table altered.
+
+
+
+database company
+****************************************************************
+create table jobs(job_id integer primary key,job_title varchar(20),min_salary integer,max_salary integer);
+Table created.
+create table regions(region_id integer primary key,region_name varchar(20));
+Table created.
+create table countries(country_id integer primary key,country_name varchar(20),region_id integer);
+Table created.
+
+
+
+database sailor
+***********************************************************************
+create table sailors(sid integer,sname varchar(20),rating integer,age integer);
+Table created.
+SQL> desc sailors
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ SNAME                                              VARCHAR2(20)
+ RATING                                             NUMBER(38)
+ AGE                                                NUMBER(38)
+SQL>create table boats(bid integer,bname varchar(20),colour varchar(20));
+Table created.
+SQL> desc boats
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BID                                       NOT NULL NUMBER(38)
+ BNAME                                              VARCHAR2(20)
+ COLOUR                                             VARCHAR2(20)
+SQL>create table reserves(sid integer references sailors(sid),bid integer references boats(bid),day date);
+Table created.
+SQL> desc reserves
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(38)
+ BID                                                NUMBER(38)
+ DAY                                                DATE
+
+
+
